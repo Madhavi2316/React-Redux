@@ -8,19 +8,33 @@ class App extends Component {
        <div>Age: <span>{this.props.age}</span> </div>
        <button onClick={this.props.onAgeUp}>AGE UP</button>
         <button onClick={this.props.onAgeDown}>AGE DOWN</button>
+        <hr/>
+        <div>History</div>
+        <div>
+            <ul>
+              {
+              this.props.history.map(el => (
+                <li className="history_item">{el.age}</li>))
+              }
+            </ul>
+        </div>
       </div>
     );
   }
 }
 const mapStateToProps=(state)=>{
   return{
-    age:state.age
+    age: state.age,
+    history: state.history
   }
 }
-const mapDispachToProps=(dispatch)=>{
+const mapDispatchToProps =(dispatch)=>{
   return{
-    onAgeUp:()=>dispatch ({type:'AGE_UP'}),
-    onAgeDown:()=> dispatch({type:'AGE_DOWN'})
+    onAgeUp: ()=>dispatch({type:'AGE_UP', value: 1}),
+    onAgeDown: ()=>dispatch({type:'AGE_DOWN', value: 1}),
+    onDelItem: ()=> dispatch({type: 'DEL_ITEM'})
   }
 }
-export default connect(mapStateToProps,mapDispachToProps)(App);
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
